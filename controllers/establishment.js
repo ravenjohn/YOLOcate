@@ -146,9 +146,13 @@ exports.get_nearest_establishment = function (req, res, next) {
 exports.update_establishment = function (req, res, next) {
 	// name, lat, long, geocode, contact
 	var onUpdate = function (err, result) {
+		var count;
+
 		if(err) return next(err);
 
-		res.send(200, { message : "success"});
+		result.message = "sucess";
+
+		res.send(200, result);
 	}, toUpdate = {};
 
 	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
@@ -157,7 +161,7 @@ exports.update_establishment = function (req, res, next) {
 	if (req.body.contact && req.body.contact.trim() !== 0) toUpdate.contact = req.body.contact;
 
 	mongo.collection('establishments')
-		.update({_id : "ObjectId("+req.body.id+")"}, { $set : toUpdate }, onUpdate);
+		.update({_id : req.body.id }, { $set : toUpdate }, onUpdate);
 };
 
 exports.add_establishment = function (req, res, next) {
