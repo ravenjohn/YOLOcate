@@ -4,7 +4,7 @@ var path = require('path'),
 			port : 8000,
 			app_name : 'YOLO',
 			env : 'development',
-			frontend_url : 'http://ravenjohn.github.io/YOLOcate/public/'.
+			frontend_url : 'http://ravenjohn.github.io/YOLOcate/public/',
 			src_dir : path.normalize(__dirname + '/../src'),
 			temp_dir : path.normalize(__dirname + '/../temp'),
 			logs_dir : path.normalize(__dirname + '/../logs'),
