@@ -1,8 +1,10 @@
 
 	var doc = window.document,
+		apiURL = 'http://localhost:8000',
 		current = {},
 		_$ = function (s) {
 			if (s[0] === '#') return doc.getElementById(s.substring(1));
+			else if (s[0] === ':') return doc.getElementsByName(s.substring(1));
 			return doc.querySelectorAll(s);
 		},
 		t = function (s, d) {
@@ -59,6 +61,30 @@
 	/**
 		Bind events
 	**/
+
+	_$("#close_modal").addEventListener('click', function (e) {
+		_$('#register_section') && (_$('#register_section').style.display = 'none');
+	}, true),
+
+	_$('#registration_button2').addEventListener('click', function (e) {
+			data = { username : _$(':username'),
+				password : _$(':password'),
+				email : _$(':email'),
+				keyword : _$(':keyword')
+			};
+
+			curl.post(apiURL + '/register')
+				.send(data)
+				.then(function (d) {
+					alert('Successfully registered!');
+					window.location.assign(apiURL + 'login.html');
+
+				})
+				.onerror(function (e) {
+					alert('Something went wrong with your registration.');
+				})
+
+	}, true);
 
 	doc.body.addEventListener('click', function (e) {
 		var href = e.target.getAttribute('href');

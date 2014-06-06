@@ -134,3 +134,18 @@ footer{
 	font-size: 10px;
 	color: #E06E6E;
 }
+
+#close_modal {
+	float: right;
+	background: #FF2E12;
+	top: 0px;
+	width: 30px;
+	height: 40px;
+	border: 0px;
+	color: white;
+}
+
+#close_modal:hover {
+	background: #B81B1B;
+	color: white;
+}
