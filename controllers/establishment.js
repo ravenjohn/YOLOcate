@@ -24,28 +24,52 @@ exports.get_all = function (req, res, next) {
 exports.get_nearest_establishment = function (req, res, next) {
 	var access_token,
 		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
-		sender = data.senderAddress,
+		sender = data.senderAddress.replace('tel:+63', ''),
 		keyword = data.message,
+		_next = function (err) {
+			curl.post
+				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+				.send({
+					outboundSMSMessageRequest : {
+						clientCorrelator : util.random_string(6),
+						senderAddress : 'tel:' + config.globe.code,
+						outboundSMSTextMessage : {message : err},
+						address : ['tel:+63' + sender]
+					}
+				})
+				.then(function (status, result) {
+					if (status === 200)
+						console.dir('message sent!');
+				})
+				.onerror(next);
+			next(err);
+		},
 		get_access_token = function (err, result) {
 			if (err) return next(err);
+			if (!result) return _next('User not registered');
 			access_token = result.access_token;
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
 				.send({
 					access_token : result.access_token,
-					address : '+63' + result.subscriber_number,
+					address : result.subscriber_number,
 					requestedAccuracy : 100
 				})
 				.then(get_nearest_establishment)
 				.onerror(next);
 		},
 		get_nearest_establishment = function (status, result) {
-			var data = result.terminalLocationList.terminalLocation.currentLocation;
+			var data;
 			if (status !== 200) return next(result);
+			data = result.terminalLocationList.terminalLocation.currentLocation;
+			console.dir({
+					keyword : keyword,
+					$near : [+data.latitude, +data.longitude]
+				});
 			mongo.collection('establishments')
 				.findOne({
 					keyword : keyword,
-					$near : [data.latitude, data.longitude]
+					loc : {$near : [+data.latitude, +data.longitude]}
 				}, send_response);
 		},
 		send_response = function (err, result) {
@@ -56,6 +80,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 			curl.post
 				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+				.add_header('Content-Type', 'application/json')
 				.send({
 					outboundSMSMessageRequest : {
 						clientCorrelator : util.random_string(6),
