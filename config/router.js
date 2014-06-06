@@ -4,6 +4,14 @@ var handler = require(__dirname + '/../controllers/handler'),
 
 module.exports = function (router, logger) {
 
+	router.all('*', function (req, res, next) {
+		console.log('---------------------');
+		console.dir(req.query);
+		console.dir(req.body);
+		console.log('---------------------');
+		next();
+	});
+
 	router.get('/sms_handler', handler.handle_sms);
 	router.post('/get_nearest_establishment', establishment.get_nearest_establishment);
 

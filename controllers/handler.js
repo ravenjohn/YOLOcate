@@ -7,6 +7,7 @@ exports.handle_sms = function (req, res, next) {
 		get_access_token = function (status, result) {
 			if (status !== 200) return next(result);
 			data = result;
+			data._id = result.subscriber_number;
 			mongo.collection('users')
 				.insert(result, send_response)
 		},

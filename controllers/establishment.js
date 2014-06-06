@@ -26,8 +26,27 @@ exports.get_nearest_establishment = function (req, res, next) {
 		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
 		sender = data.senderAddress,
 		keyword = data.message,
+		_next = function (err) {
+			curl.post
+				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+				.send({
+					outboundSMSMessageRequest : {
+						clientCorrelator : util.random_string(6),
+						senderAddress : 'tel:' + config.globe.code,
+						outboundSMSTextMessage : {message : err},
+						address : ['tel:+63' + sender]
+					}
+				})
+				.then(function (status, result) {
+					if (status === 200)
+						console.dir('message sent!');
+				})
+				.onerror(next);
+			next(err);
+		},
 		get_access_token = function (err, result) {
 			if (err) return next(err);
+			if (!result) return _next('User not registered');
 			access_token = result.access_token;
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
