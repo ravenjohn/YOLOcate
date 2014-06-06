@@ -62,10 +62,14 @@ exports.get_nearest_establishment = function (req, res, next) {
 			var data;
 			if (status !== 200) return next(result);
 			data = result.terminalLocationList.terminalLocation.currentLocation;
+			console.dir({
+					keyword : keyword,
+					$near : [+data.latitude, +data.longitude]
+				});
 			mongo.collection('establishments')
 				.findOne({
 					keyword : keyword,
-					$near : [data.latitude, data.longitude]
+					$near : [+data.latitude, +data.longitude]
 				}, send_response);
 		},
 		send_response = function (err, result) {
