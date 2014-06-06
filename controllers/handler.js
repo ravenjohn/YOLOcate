@@ -26,6 +26,7 @@ exports.handle_sms = function (req, res, next) {
 		.onerror(next);
 };
 
+
 exports.get_establishments = function (req, res, next) {
 };
 
@@ -60,4 +61,31 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 	mongo.collection('users')
 		.findOne({subscriber_number : sender}, get_access_token)
+};
+
+exports.add_establishment = function (req, res, next) {
+	/* lat, long, geocode, name, username, contact */
+	var send_response = function (err, result) {
+		if (err) return next(err);
+
+		res.send(200, {
+			message: "Success"
+		});
+
+	},
+		ensure = function (err, result) {
+			if (err) return next(err);
+
+			mongo.collection('establishment')
+				.ensureIndex({loc: "2d"}, send_response);
+
+		};
+
+	mongo.collection('establishments')
+		.insert({name: req.body.name,
+		username: req.body.username,
+		contact : req.body.contact,
+		loc : [+req.body.lat, +req.body.long],
+		geocode : req.body.geocode
+	}, ensure);
 };

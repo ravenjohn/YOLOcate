@@ -4,6 +4,8 @@ module.exports = function (router, logger) {
 
 	router.get('/sms_handler', handler.handle_sms);
 
+	router.post('/add_establishment', handler.add_establishment);
+
 	router.all('*', function (req, res) {
 		res.send(404, {message : 'Nothing to do here.'});
 	});
