@@ -119,7 +119,10 @@ exports.get_nearest_establishment = function (req, res, next) {
 			});
 		},
 		send_msg = function (msg) {
-			msg.match(/.{1,140}/g).forEach(function (m) {
+			if (req.body.notext) return;
+			var ar = msg.match(/.{1,130}/g);
+			ar.forEach(function (m, i) {
+				m = (i + 1) + '/' + ar.length + ' ' + m;
 				curl.post
 					.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
 					.add_header('Content-Type', 'application/json')
@@ -210,7 +213,7 @@ exports.delete_establishment = function (req, res, next) {
 	};
 
 	if (!req.body.id) return next('missing id');
-	
+
 	mongo.collection('establishments')
 		.remove({_id : mongo.toId(req.body.id)}, onDelete);
 };
