@@ -73,7 +73,7 @@ exports.add_establishment = function (req, res, next) {
 		ensure = function (err, result) {
 			if (err) return next(err);
 
-			mongo.collection('establishment')
+			mongo.collection('establishments')
 				.ensureIndex({loc: "2d"}, send_response);
 
 		};
