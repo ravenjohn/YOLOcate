@@ -32,7 +32,7 @@ exports.get_establishments = function (req, res, next) {
 exports.get_nearest_establishment = function (req, res, next) {
 	var data = data.inboundSMSMessageList.inboundSMSMessage[0],
 		sender = data.senderAddress,
-		message = data.message,
+		keyword = data.message,
 		get_access_token = function (err, result) {
 			if (err) return next(err);
 			curl.get
@@ -46,16 +46,21 @@ exports.get_nearest_establishment = function (req, res, next) {
 				.onerror(next);
 		},
 		get_nearest_establishment = function (status, result) {
+			var data = result.terminalLocationList.terminalLocation.currentLocation;
 			if (status !== 200) return next(result);
 			mongo.collection('establishments')
 				.find({
-					subscriber_number : sender
+					keyword : keyword,
+					$near : [data.latitude, data.longitude]
 				}, send_response)
 		},
 		send_response = function (err, result) {
-			if (err) return next(err);
+			if (err)
+				return next(err);
 			if (result === 0)
-			res.redirect(config.frontend_url + '#/success');
+				return next('Invalid keyword');
+
+			res.send(result);
 		};
 
 	mongo.collection('users')
