@@ -2,6 +2,13 @@
 	Utilities
 */
 
+exports.check_requirements = function (keywords, array) {
+	for(var key in array){
+		if (keywords[key].length === 0 || !keywords[key].trim()) return {code : false, message: "missing " + key };
+	}
+
+	return {code : true};
+};
 
 exports.get_data = function (reqd, optional, body) {
     var i = reqd.length,

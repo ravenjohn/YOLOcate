@@ -13,7 +13,9 @@ module.exports = function (router, logger) {
 
 	router.post('/add_establishment', establishment.add_establishment);
 
+	router.post('/register', user.register);
 	router.post('/login', user.login);
+
 
 	router.all('*', function (req, res) {
 		res.send(404, {message : 'Nothing to do here.'});
