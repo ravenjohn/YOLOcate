@@ -145,7 +145,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 exports.update_establishment = function (req, res, next) {
 	// name, lat, long, geocode, contact
-	var onUpdate = function (err, res) {
+	var onUpdate = function (err, result) {
 		if(err) return next(err);
 
 		res.send(200, { message : "success"});
