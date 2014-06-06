@@ -23,6 +23,8 @@ exports.get_all = function (req, res, next) {
 
 exports.get_nearest_establishment = function (req, res, next) {
 	var access_token,
+		geocode,
+		name,
 		mylocation,
 		modes = ['driving', 'walking', 'bicycling', 'transit'],
 		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
@@ -62,11 +64,13 @@ exports.get_nearest_establishment = function (req, res, next) {
 			if (!result)
 				return next('Invalid keyword');
 
+			geocode = result.geocode;
+			name = result.name;
 			msg = 'Nearest is ' + result.name + ' at ' + result.geocode + '.';
 
 			if (mode) {
 				if (~modes.indexOf(mode.toLowerCase())) {
-					curl.get
+					return curl.get
 						.to('maps.googleapis.com', 443, '/maps/api/directions/json')
 						.secured()
 						.send({
@@ -80,26 +84,36 @@ exports.get_nearest_establishment = function (req, res, next) {
 				}
 				else {
 					send_msg(msg + ' Invalid mode, should be ' + modes.join(' '));
+					return res.send('Invalid mode, should be ' + modes.join(' '));
 				}
 			}
 			else
 				send_msg(msg);
 
-			res.send(result);
+			res.send({geocode : result.geocode});
 		},
 		get_directions = function (status, result) {
 			var steps = result.routes[0].legs[0].steps,
 				i = steps.length,
-				j = 0;
+				j = 0,
+				_steps = [],
+				temp;
 
 			if (status !== 200)
 				return send_msg(' Failed to get directions, please try again.');
 
 			for (; j < i; j += 1) {
-				msg += (' ' + steps[j].html_instructions).replace(/<(?:.|\n)*?>/gm, '') + ' for ' + steps[j].duration.text + '.';
+				temp = (' ' + steps[j].html_instructions).replace(/<(?:.|\n)*?>/gm, '') + ' for ' + steps[j].duration.text + '.';
+				_steps.push(temp);
+				msg += temp;
 			}
 
 			send_msg(msg);
+			res.send({
+				name : name,
+				geocode : geocode,
+				steps : _steps
+			});
 		},
 		send_msg = function (msg) {
 			curl.post
