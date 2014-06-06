@@ -119,6 +119,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 			});
 		},
 		send_msg = function (msg) {
+			if (req.body.notext) return;
 			msg.match(/.{1,140}/g).forEach(function (m) {
 				curl.post
 					.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
