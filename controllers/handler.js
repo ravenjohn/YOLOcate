@@ -10,7 +10,7 @@ exports.handle_sms = function (req, res, next) {
 		},
 		send_response = function (err) {
 			if (err) return next(err);
-			res.redirect(frontend_url + 'success');
+			res.redirect(frontend_url.frontend_url + 'success');
 		};
 	curl.post
 		.to('developer.globelabs.com.ph', 80, '/oauth/access_token')
