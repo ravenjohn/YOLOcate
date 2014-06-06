@@ -6,6 +6,7 @@ var express = require('express'),
 logger.log('info', 'initializing ' + config.app_name + '. ENV = ', process.env['NODE_ENV']);
 
 app.disable('x-powered-by');
+app.use(express.static(config.public_dir));
 app.use(require('morgan')({format : 'dev'}));
 app.use(require('body-parser')({uploadDir : config.temp_dir}));
 app.use(require('cookie-parser')(config.cookie_secret));
