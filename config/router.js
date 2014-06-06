@@ -6,10 +6,14 @@ module.exports = function (router, logger) {
 	router.get('/sms_handler', handler.handle_sms);
 	router.get('/get_nearest_establishment', establishment.get_nearest_establishment);
 
+
 	// establishments
 	router.get('/establishments', establishment.get_all);
 
 	router.post('/add_establishment', handler.add_establishment);
+
+	// users
+	router.post('/login', users.login);
 
 	router.all('*', function (req, res) {
 		res.send(404, {message : 'Nothing to do here.'});
