@@ -53,7 +53,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 						result.forEach(function (e) {
 							var keyword = e.keyword;
 							if (!data[e.keyword]) {
-								data[e.keyword] = e.super_name;
+								data[e.keyword] = e.supername;
 							}
 						});
 						for (var i in data) {
