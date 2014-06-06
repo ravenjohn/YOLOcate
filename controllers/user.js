@@ -9,8 +9,10 @@ exports.login = function (req, res, next) {
 
         if (!result)  return next(err);
 
-        if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex'))
+        if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex')){
+            res.cookie('sessid', 'logged', {secure: true});
             return res.send(200, {message : "success"});
+        }
     };
 
     if(!req.body.username || req.body.username.trim() === 0) return next("missing username");
