@@ -1,5 +1,6 @@
 var handler = require(__dirname + '/../controllers/handler'),
-	establishment = require(__dirname + '/../controllers/establishment');
+	establishment = require(__dirname + '/../controllers/establishment'),
+	user = require(__dirname + '/../controllers/user');
 
 module.exports = function (router, logger) {
 
@@ -13,7 +14,7 @@ module.exports = function (router, logger) {
 	router.post('/add_establishment', handler.add_establishment);
 
 	// users
-	router.post('/login', users.login);
+	router.post('/login', user.login);
 
 	router.all('*', function (req, res) {
 		res.send(404, {message : 'Nothing to do here.'});
