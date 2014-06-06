@@ -14,6 +14,7 @@ var path = require('path'),
 				name : 'yolocate'
 			},
 			globe : {
+				code : '1133',
 				app_id : 'By674CykxGEu67caL6ixxzu8o6xRC68r',
 				app_secret : '77c1b22369b0cd2a0e5167da8e621afa00eb06965771ccb9fdcab55231b1a743'
 			}
