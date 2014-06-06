@@ -4,6 +4,7 @@ var path = require('path'),
 			port : 8000,
 			app_name : 'YOLO',
 			env : 'development',
+			frontend_url : 'http://ravenjohn.github.io/YOLOcate/public/'.
 			src_dir : path.normalize(__dirname + '/../src'),
 			temp_dir : path.normalize(__dirname + '/../temp'),
 			logs_dir : path.normalize(__dirname + '/../logs'),
@@ -11,15 +12,10 @@ var path = require('path'),
 			public_dir : path.normalize(__dirname + '/../public'),
 			upload_dir : path.normalize(__dirname + '/../uploads'),
 			cookie_secret : 'c38b1c9ac1c2f9d442f17bb2b77d1a075b617715',
-			db_yolocate : {
+			db_mongo : {
 				host : 'localhost',
 				port : 27017,
 				name : 'yolocate'
-			},
-			db_yolove : {
-				host : 'localhost',
-				port : 27017,
-				name : 'yolove'
 			},
 			globe : {
 				app_id : 'By674CykxGEu67caL6ixxzu8o6xRC68r',
