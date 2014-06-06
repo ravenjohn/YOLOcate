@@ -80,6 +80,7 @@ exports.add_establishment = function (req, res, next) {
 
 	mongo.collection('establishments')
 		.insert({name: req.body.name,
+			supername : req.body.supername,
 		username: req.body.username,
 		contact : req.body.contact,
 		loc : [+req.body.lat, +req.body.long],
