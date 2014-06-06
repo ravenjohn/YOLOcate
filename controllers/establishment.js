@@ -52,7 +52,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 			mylocation = [+data.latitude, +data.longitude];
 			mongo.collection('establishments')
 				.findOne({
-					keyword : keyword,
+					keyword : keyword.toLowerCase(),
 					loc : {$near : [+data.latitude, +data.longitude]}
 				}, send_response);
 		},
@@ -71,7 +71,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 						.secured()
 						.send({
 							origin : mylocation.join(','),
-							to : result.loc.join(','),
+							destination : result.loc.join(','),
 							key : config.google_api_key,
 							mode : mode
 						})
