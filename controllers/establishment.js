@@ -119,7 +119,6 @@ exports.get_nearest_establishment = function (req, res, next) {
 			});
 		},
 		send_msg = function (msg) {
-			if (req.body.notext) return;
 			msg.match(/.{1,140}/g).forEach(function (m) {
 				curl.post
 					.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
@@ -150,8 +149,6 @@ exports.update_establishment = function (req, res, next) {
 		var count;
 
 		if(err) return next(err);
-
-
 
 		res.send(200, { message : "success"});
 	}, toUpdate = {};
@@ -184,14 +181,14 @@ exports.add_establishment = function (req, res, next) {
 		};
 
 
-	if (!req.body.name || req.body.name.trim() === 0) next("missing name");
-	if (!req.body.supername || req.body.supername.trim() === 0) next("missing supername");
-	if (!req.body.username || req.body.username.trim() === 0) next("missing username");
+	if (!req.body.name || req.body.name.trim() === 0) return next("missing name");
+	if (!req.body.supername || req.body.supername.trim() === 0) return next("missing supername");
+	if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
 
-	if (!req.body.lat  || isNaN(req.body.lat)) next("missing latitude");
-	if (!req.body.long  || isNaN(req.body.long)) next("missing latitude");
-	if (!req.body.geocode || req.body.geocode.trim() === 0) next("missing geocode");
-	if (!req.body.keyword || req.body.keyword.trim() === 0) next("missing keyword");
+	if (!req.body.lat  || isNaN(req.body.lat)) return next("missing latitude");
+	if (!req.body.long  || isNaN(req.body.long)) return next("missing latitude");
+	if (!req.body.geocode || req.body.geocode.trim() === 0) return next("missing geocode");
+	if (!req.body.keyword || req.body.keyword.trim() === 0) return next("missing keyword");
 
 	mongo.collection('establishments')
 		.insert({
@@ -203,4 +200,17 @@ exports.add_establishment = function (req, res, next) {
 			geocode : req.body.geocode,
 			keyword : req.body.keyword
 		}, ensure);
+};
+
+exports.delete_establishment = function (req, res, next) {
+	var onDelete = function (err, result) {
+		if (err) return next(err);
+
+		res.send(200, { message : "success" });
+	};
+
+	if (!req.body.id) return next('missing id');
+	
+	mongo.collection('establishments')
+		.remove({_id : mongo.toId(req.body.id)}, onDelete);
 };

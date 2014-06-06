@@ -21,6 +21,7 @@ module.exports = function (router, logger) {
 
 	router.post('/establishment', establishment.add_establishment);
 	router.put('/establishment', establishment.update_establishment);
+	router.delete('/establishment', establishment.delete_establishment);
 
 	router.post('/register', user.register);
 	router.post('/login', user.login);
