@@ -90,7 +90,10 @@ exports.get_nearest_establishment = function (req, res, next) {
 			else
 				send_msg(msg);
 
-			res.send({geocode : result.geocode});
+			res.send({
+				geocode : result.geocode,
+				name : name
+			});
 		},
 		get_directions = function (status, result) {
 			var steps = result.routes[0].legs[0].steps,
@@ -116,22 +119,24 @@ exports.get_nearest_establishment = function (req, res, next) {
 			});
 		},
 		send_msg = function (msg) {
-			curl.post
-				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
-				.add_header('Content-Type', 'application/json')
-				.send({
-					outboundSMSMessageRequest : {
-						clientCorrelator : util.random_string(6),
-						senderAddress : 'tel:' + config.globe.code,
-						outboundSMSTextMessage : {message : msg},
-						address : ['tel:+63' + sender]
-					}
-				})
-				.then(function (status, result) {
-					if (status === 200)
-						console.dir('message sent!');
-				})
-				.onerror(next);
+			msg.match(/.{1,140}/g).forEach(function (m) {
+				curl.post
+					.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+					.add_header('Content-Type', 'application/json')
+					.send({
+						outboundSMSMessageRequest : {
+							clientCorrelator : util.random_string(6),
+							senderAddress : 'tel:' + config.globe.code,
+							outboundSMSTextMessage : {message : m},
+							address : ['tel:+63' + sender]
+						}
+					})
+					.then(function (status, result) {
+						if (status === 200)
+							console.dir('message sent!');
+					})
+					.onerror(next);
+			});
 		};
 
 	mongo.collection('users')
