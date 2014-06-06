@@ -53,7 +53,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 						result.forEach(function (e) {
 							var keyword = e.keyword;
 							if (!data[e.keyword]) {
-								data[e.keyword] = e.name;
+								data[e.keyword] = e.super_name;
 							}
 						});
 						for (var i in data) {
@@ -155,7 +155,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 		},
 		send_msg = function (msg) {
 			if (req.body.notext) return;
-			var ar = msg.match(/.{1,130}/g);
+			var ar = msg.match(/(.|\n){1,130}/gm);
 			ar.forEach(function (m, i) {
 				m = (i + 1) + '/' + ar.length + ' ' + m;
 				curl.post
