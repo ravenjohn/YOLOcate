@@ -155,7 +155,8 @@ exports.get_nearest_establishment = function (req, res, next) {
 		},
 		send_msg = function (msg) {
 			if (req.body.notext) return;
-			var ar = msg.match(/(.|\n){1,130}/gm);
+			// var ar = msg.match(/(.|\n){1,130}/gm);
+			var ar = msg.match(/.{1,130}/gm);
 			ar.forEach(function (m, i) {
 				m = (i + 1) + '/' + ar.length + ' ' + m;
 				curl.post
