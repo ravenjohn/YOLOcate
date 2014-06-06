@@ -3,7 +3,7 @@ var express = require('express'),
     config = require(__dirname + '/config/config'),
     logger = require(__dirname + '/lib/logger');
 
-console.log('initializing ' + config.app_name + '. ENV = ', process.env['NODE_ENV']);
+logger.log('info', 'initializing ' + config.app_name + '. ENV = ', process.env['NODE_ENV']);
 
 app.disable('x-powered-by');
 app.use(require('morgan')({format : 'dev'}));

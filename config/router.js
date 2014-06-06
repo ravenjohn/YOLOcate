@@ -1,6 +1,8 @@
-// var controller = require(__dirname + '/../controllers/controller');
+var handler = require(__dirname + '/../controllers/handler');
 
 module.exports = function (router, logger) {
+
+	router.get('/sms_handler', handler.handle_sms);
 
 	router.all('*', function (req, res) {
 		res.send(404, {message : 'Nothing to do here.'});
