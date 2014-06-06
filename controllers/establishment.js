@@ -82,6 +82,7 @@ exports.add_establishment = function (req, res, next) {
 		username: req.body.username,
 		contact : req.body.contact,
 		loc : [+req.body.lat, +req.body.long],
-		geocode : req.body.geocode
+		geocode : req.body.geocode,
+		keyword : req.body.keyword
 	}, ensure);
 };

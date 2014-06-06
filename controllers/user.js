@@ -3,5 +3,10 @@ var config = require(__dirname + '/../config/config'),
     curl = require(__dirname + '/../lib/curl');
 
 exports.login = function (req, res, next) {
-    
+
+};
+
+exports.register = function (req, res, next) {
+
+
 };
