@@ -151,7 +151,7 @@ exports.update_establishment = function (req, res, next) {
 		res.send(200, { message : "success"});
 	}, toUpdate = {};
 
-	if (req.body.name && req.body.name.trim !== 0) toUpdate.name = req.body.name;
+	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
 	if (req.body.lat && req.body.long && !isNaN(req.body.lat) && !isNaN(req.body.long)) toUpdate.loc = [req.body.lat, req.body.long];
 	if (req.body.geocode && req.body.name.trim() !== 0) toUpdate.geocde = req.body.geocode;
 	if (req.body.contact && req.body.contact.trim() !== 0) toUpdate.contact = req.body.contact;
