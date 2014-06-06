@@ -24,7 +24,7 @@ exports.get_all = function (req, res, next) {
 exports.get_nearest_establishment = function (req, res, next) {
 	var access_token,
 		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
-		sender = data.senderAddress,
+		sender = data.senderAddress.replace('tel:+63', ''),
 		keyword = data.message,
 		_next = function (err) {
 			curl.post
