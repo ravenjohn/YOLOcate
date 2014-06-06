@@ -69,7 +69,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 			mongo.collection('establishments')
 				.findOne({
 					keyword : keyword,
-					$near : [+data.latitude, +data.longitude]
+					loc : {$near : [+data.latitude, +data.longitude]}
 				}, send_response);
 		},
 		send_response = function (err, result) {
