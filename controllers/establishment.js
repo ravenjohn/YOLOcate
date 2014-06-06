@@ -161,7 +161,7 @@ exports.update_establishment = function (req, res, next) {
 	if (req.body.contact && req.body.contact.trim() !== 0) toUpdate.contact = req.body.contact;
 
 	mongo.collection('establishments')
-		.update({_id : toObjectID(req.body.id)}, { $set : toUpdate }, onUpdate);
+		.update({_id : mongo.toId(req.body.id)}, { $set : toUpdate }, onUpdate);
 };
 
 exports.add_establishment = function (req, res, next) {
