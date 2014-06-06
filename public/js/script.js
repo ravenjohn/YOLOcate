@@ -1,6 +1,5 @@
-(function (root) {
 
-	var doc = root.document,
+	var doc = window.document,
 		current = {},
 		_$ = function (s) {
 			if (s[0] === '#') return doc.getElementById(s.substring(1));
@@ -43,9 +42,9 @@
 		},
 
 		start = function () {
-			page.show(root.location.pathname === '/'
+			page.show(window.location.pathname === '/'
 				? '/default'
-				: root.location.pathname);
+				: window.location.pathname);
 		};
 
 
@@ -70,8 +69,13 @@
 		}
 	}, true);
 
+	doc.body.addEventListener('keyup', function (e) {
+		if (e.keyCode === 27) {
+			_$('#register_section') && (_$('#register_section').style.display = 'none');
+		}
+	});
 
-	root.onpopstate = page;
+	window.onpopstate = page;
 
 
 	/**
@@ -79,5 +83,3 @@
 	*/
 	NProgress.configure({ showSpinner: false });
 	start();
-
-} (this) );

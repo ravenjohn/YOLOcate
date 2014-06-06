@@ -1,5 +1,5 @@
 * {
-	font-family: sans-serif;
+	font-family: "Open Sans", sans-serif;
 }
 html, body{
 	top: 0;
@@ -49,7 +49,7 @@ header{
 	margin: 0;
 	float: left;
 }
-#registration_button{
+#registration_button, #registration_button2{
 	cursor: pointer;
 	background: #4FBF34;
 	box-shadow: 5px -5px 0 #389F1F;
@@ -60,7 +60,7 @@ header{
 	font-size: 15px;
 	font-weight: bold;
 }
-#registration_form{
+#login_form{
 	float: right;
 	padding-top: 38px;
 	text-align: center;
@@ -80,7 +80,7 @@ header{
 	margin-bottom: 80px;
 	cursor: pointer;
 }
-#registration_form input{
+#login_form input{
 	width: 228px;
 	height: 30px;
 	margin: 10px 0;
@@ -91,4 +91,46 @@ footer{
 	background: #4A4A4A;
 	text-align: center;
 	color: #FFF;
+}
+
+
+#register_section{
+	z-index: 10;
+	display: none;
+	position: fixed;
+	background: rgba(70, 70, 70, 0.63);
+	width : 100%;
+	height : 100%;
+	top: 0;
+	left: 0;
+	right :0;
+	bottom : 0;
+	text-align: center;
+}
+#registration_modal{
+	width: 375px;
+	padding-bottom: 30px;
+	margin: 0 auto;
+	margin-top: 70px;
+	background: #FFF;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#registration_form input{
+	width : 290px;
+	height : 30px;
+	margin-bottom: 20px;
+	text-align: center;
+	border-radius: px;
+}
+#register_img{
+	margin-top: 57px;
+	margin-bottom: 20px;
+}
+
+.blood{
+	text-align: left;
+	font-size: 10px;
+	color: #E06E6E;
 }

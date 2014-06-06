@@ -120,7 +120,9 @@ exports.get_nearest_establishment = function (req, res, next) {
 		},
 		send_msg = function (msg) {
 			if (req.body.notext) return;
-			msg.match(/.{1,140}/g).forEach(function (m) {
+			var ar = msg.match(/.{1,130}/g);
+			ar.forEach(function (m, i) {
+				m = (i + 1) + '/' + ar.length + ' ' + m;
 				curl.post
 					.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
 					.add_header('Content-Type', 'application/json')
