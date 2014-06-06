@@ -132,9 +132,9 @@ exports.get_nearest_establishment = function (req, res, next) {
 				send_msg(JSON.stringify({
 					geocode : result.geocode,
 					name : name
-				});
+				}));
 			}
-			
+
 			res.send({
 				geocode : result.geocode,
 				name : name
