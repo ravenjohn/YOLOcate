@@ -37,6 +37,41 @@ exports.get_nearest_establishment = function (req, res, next) {
 			if (err) return next(err);
 			if (!result) return next('User not registered');
 			access_token = result.access_token;
+
+
+
+
+
+
+
+			if (keyword.trim().toLowerCase() === 'all') {
+
+				var send_response = function (err, result) {
+						var data = {},
+							msg = '';
+						if (err) return next(err);
+						result.forEach(function (e) {
+							var keyword = e.keyword;
+							if (!data[e.keyword]) {
+								data[e.keyword] = e.name;
+							}
+						});
+						for (var i in data) {
+							msg += data[i] + ' - ' + i + '\n';
+						}
+						send_msg(msg);
+						res.send({});
+					};
+
+				return mongo.collection('establishments')
+					.find({}).toArray(send_response);
+			}
+
+
+
+
+
+
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
 				.send({
