@@ -7,11 +7,13 @@ exports.login = function (req, res, next) {
     var compare = function (err, result) {
         if (err) return next(err);
 
-        if (!result)  return next(err);
+        if (!result) return next("database server error response");
 
         if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex')){
             res.cookie('sessid', req.body.username, {secure: true});
             return res.send(200, {message : "success"});
+        } else {
+            return next("Invalid username or password");
         }
     };
 
@@ -19,7 +21,7 @@ exports.login = function (req, res, next) {
     if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
 
     mongo.collection('establishment_users')
-        .findOne({name: req.body.username}, compare);
+        .findOne({username: req.body.username}, compare);
 };
 
 exports.register = function (req, res, next) {

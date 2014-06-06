@@ -15,6 +15,8 @@ module.exports = function (router, logger) {
 	router.get('/sms_handler', handler.handle_sms);
 	router.post('/get_nearest_establishment', establishment.get_nearest_establishment);
 
+	router.post('/register', user.register);
+	router.post('/login', user.login);
 
 	// establishments
 	router.get('/establishments', establishment.get_all);
@@ -22,9 +24,6 @@ module.exports = function (router, logger) {
 	router.post('/establishment', establishment.add_establishment);
 	router.put('/establishment', establishment.update_establishment);
 	router.delete('/establishment', establishment.delete_establishment);
-
-	router.post('/register', user.register);
-	router.post('/login', user.login);
 
 
 	router.all('*', function (req, res) {
