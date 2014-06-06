@@ -12,28 +12,12 @@
     </head>
 
     <body>
-		<header>
-			<div class="gold-bar"></div>
-			<img id="logo_img" src="images/logo.png" alt="Logo" width="509px" height="110px" />
-			<br />
-			<div class="container">
-				<img src="images/desc.png" alt="description" width="376px" height="313px"/>
-				<form id="login_form">
-					<button id="registration_button" onclick="function (e) {alert(1); _$('#register_section') && (_$('#register_section').style.display = 'inline'); e.preventDefault(); return false;}">REGISTER NOW!</button>
-					<br /><br />
-					OR
-					<br />
-					<input type="text" name="username" placeholder="Username"/>
-					<br />
-					<input type="text" name="password" placeholder="Password"/>
-					<br /><br />
-					<button type="submit" id="login_button">LOGIN</button>
-				</form>
-			</div>
-		</header>
-		<div class="gray-bar"></div>
-		<img src="images/features.png" alt="Logo" width="800px" height="647px" />
-
+		<img id="landing_img" src="images/landing-page.png" width="800px" height="898px" />
+		<div class="gold-bar absolute" style="top: 0"></div>
+		<div class="blue-bar absolute" style="top: 432px;"></div>
+ 		<a id="registration_button" style="position: absolute; left:  calc(50% - 300px); top: 368px; width: 151px;" href = 'http://developer.globelabs.com.ph/dialog/oauth?app_id=By674CykxGEu67caL6ixxzu8o6xRC68r' target="_blank">REGISTER HERE</a>
+ 		<a id="add_button" style="position: absolute; left:  calc(50% + 100px); top: 368px; width: 151px;" href = 'establishment.html'>ADD THEM HERE</a>
+<!-- 		<a id="registration_button" style="position: absolute; left: calc(50% - 300px); right 0; margin: 0 auto;" href = 'http://developer.globelabs.com.ph/dialog/oauth?app_id=By674CykxGEu67caL6ixxzu8o6xRC68r' target="_blank">REGISTER HERE</a> -->
 		<footer>
 			<br /><br /><br />
 			Liked YOLOcate? Try
@@ -45,26 +29,6 @@
 			YOLOcate 2014
 			<br /><br /><br /><br />
 		</footer>
-
-		<section id="register_section">
-			<div id="registration_modal">
-				<img id="register_img" src="images/logo-register.png" alt="Logo" width="260px" height="70px" />
-				<form id="registration_form">
-					<input type="text" name="username" required="required" autofocus="true" placeholder="username"/>
-					<br />
-					<input type="password" name="password" required="required" placeholder="password"/>
-					<br />
-					<input type="password" name="password_confirmation" required="required" placeholder="confirm password"/>
-					<br />
-					<input type="email" name="email" required="required" placeholder="email"/>
-					<br />
-					<input type="text" name="keyword" required="required" placeholder="keyword"/>
-					<br /><br />
-					<button type="submit" id="registration_button2">REGISTER</button>
-				</form>
-			</div	>
-		</section>
-
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Cookies.js/0.3.1/cookies.min.js"></script>
 		<script type="text/javascript" src="js/libs/curl.js"></script>
 		<script type="text/javascript" src="js/libs/nprogress.js"></script>

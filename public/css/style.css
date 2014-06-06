@@ -7,6 +7,7 @@ html, body{
 	padding: 0;
 	height: 100%;
 	text-align: center;
+	position: relative;
 }
 a {
 	text-decoration: none;
@@ -22,14 +23,19 @@ table{
 	clear: both;
 }
 .gold-bar{
-	height: 23px;
+	height: 16px;
 	width: 100%;
 	background: #D78A12;
 }
 .gray-bar{
-	height: 23px;
+	height: 16px;
 	width: 100%;
 	background: #C8C8C8;
+}
+.blue-bar{
+	height: 16px;
+	width: 100%;
+	background: #0B558E;
 }
 header{
 	text-align: center;
@@ -53,6 +59,17 @@ header{
 	cursor: pointer;
 	background: #4FBF34;
 	box-shadow: 5px -5px 0 #389F1F;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#add_button{
+	cursor: pointer;
+	background: #ab5050;
+	box-shadow: 5px -5px 0 #8f2424;
 	color: #FFF;
 	border: 0;
 	padding: 12px 0;
@@ -133,4 +150,7 @@ footer{
 	text-align: left;
 	font-size: 10px;
 	color: #E06E6E;
+}
+.absolute {
+	position: absolute;
 }
