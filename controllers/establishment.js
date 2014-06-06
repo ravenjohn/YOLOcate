@@ -1,12 +1,12 @@
 var config = require(__dirname + '/../config/config'),
 	mongo = require(__dirname + '/../lib/mongoskin'),
+	util = require(__dirname + '/../helpers/util'),
 	curl = require(__dirname + '/../lib/curl');
 
 exports.get_all = function (req, res, next) {
 	var send_response = function (err, result) {
 			var data = {};
 			if (err) return next(err);
-			console.dir(result);
 			result.forEach(function (e) {
 				var keyword = e.keyword;
 				if (!data[e.keyword]) {
@@ -21,13 +21,14 @@ exports.get_all = function (req, res, next) {
 		.find({}).toArray(send_response);
 };
 
-
 exports.get_nearest_establishment = function (req, res, next) {
-	var data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
+	var access_token,
+		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
 		sender = data.senderAddress,
 		keyword = data.message,
 		get_access_token = function (err, result) {
 			if (err) return next(err);
+			access_token = result.access_token;
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
 				.send({
@@ -50,8 +51,24 @@ exports.get_nearest_establishment = function (req, res, next) {
 		send_response = function (err, result) {
 			if (err)
 				return next(err);
-			if (result === 0)
+			if (!result)
 				return next('Invalid keyword');
+
+			curl.post
+				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+				.send({
+					outboundSMSMessageRequest : {
+						clientCorrelator : util.random_string(6),
+						senderAddress : 'tel:' + config.globe.code,
+						outboundSMSTextMessage : {message : result.geocode},
+						address : ['tel:+63' + sender]
+					}
+				})
+				.then(function (status, result) {
+					if (status === 200)
+						console.dir('message sent!');
+				})
+				.onerror(next);
 
 			res.send(result);
 		};
