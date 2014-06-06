@@ -52,15 +52,16 @@ exports.get_nearest_establishment = function (req, res, next) {
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
 				.send({
 					access_token : result.access_token,
-					address : '+63' + result.subscriber_number,
+					address : result.subscriber_number,
 					requestedAccuracy : 100
 				})
 				.then(get_nearest_establishment)
 				.onerror(next);
 		},
 		get_nearest_establishment = function (status, result) {
-			var data = result.terminalLocationList.terminalLocation.currentLocation;
+			var data;
 			if (status !== 200) return next(result);
+			data = result.terminalLocationList.terminalLocation.currentLocation;
 			mongo.collection('establishments')
 				.findOne({
 					keyword : keyword,
