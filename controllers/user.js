@@ -15,8 +15,8 @@ exports.login = function (req, res, next) {
         }
     };
 
-    if(!req.body.username || req.body.username.trim() === 0) return next("missing username");
-    if(!req.body.password || req.body.password.trim() === 0) return next("missing password");
+    if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
+    if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
 
     mongo.collection('establishment_users')
         .findOne({name: req.body.username}, compare);
@@ -29,9 +29,11 @@ exports.register = function (req, res, next) {
             res.send(200, {message : "success"});
         };
 
-    if(!req.body.username || req.body.username.trim() === 0) return next("missing username");
-    if(!req.body.password || req.body.password.trim() === 0) return next("missing password");
-    if(!req.body.keyword || req.body.keyword.trim() === 0) return next("missing keyword");
+    if (req.signedCookies.sessid === 'logged') return res.redirect(config.frontend.url + '/login.html');
+
+    if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
+    if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
+    if (!req.body.keyword || req.body.keyword.trim() === 0) return next("missing keyword");
 
     mongo.collection('establishment_users')
         .insert({username: req.body.username,
