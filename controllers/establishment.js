@@ -32,11 +32,16 @@ exports.get_nearest_establishment = function (req, res, next) {
 		message = data.message.split(' '),
 		keyword = message[0],
 		mode = message[1],
-		msg,
+		msg, mobile = false;
 		get_access_token = function (err, result) {
 			if (err) return next(err);
 			if (!result) return next('User not registered');
 			access_token = result.access_token;
+
+			if (keyword.trim().toLowerCase().indexOf('isusingmobile')===0) {
+				keyword = keyword.trim().toLowerCase().replace('isusingmobile', '');
+				mobile = true;
+			}
 
 			if (keyword.trim().toLowerCase() === 'all') {
 
@@ -60,11 +65,6 @@ exports.get_nearest_establishment = function (req, res, next) {
 				return mongo.collection('establishments')
 					.find({}).toArray(send_response);
 			}
-
-
-
-
-
 
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
@@ -119,6 +119,13 @@ exports.get_nearest_establishment = function (req, res, next) {
 			else
 				send_msg(msg);
 
+			if(mobile) {
+				send_msg(JSON.stringify({
+					geocode : result.geocode,
+					name : name
+				}));
+			}
+
 			res.send({
 				geocode : result.geocode,
 				name : name
@@ -151,8 +158,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 			if (req.body.notext) return;
 
-			// var ar = msg.match(/(.|\n){1,130}/gm);
-			var ar = msg.match(/.{1,130}/gm);
+			var ar = msg.match(/(.|\n){1,130}/gm);
 
 			ar.forEach(function (m, i) {
 				m = (i + 1) + '/' + ar.length + ' ' + m;
