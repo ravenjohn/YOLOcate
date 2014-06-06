@@ -6,6 +6,7 @@ html, body{
 	margin: 0;
 	padding: 0;
 	height: 100%;
+	text-align: center;
 }
 a {
 	text-decoration: none;
@@ -25,10 +26,69 @@ table{
 	width: 100%;
 	background: #D78A12;
 }
+.gray-bar{
+	height: 23px;
+	width: 100%;
+	background: #C8C8C8;
+}
 header{
 	text-align: center;
 }
 
-header img{
-	margin-top: 120px;
+#logo_img{
+	margin-top: 74px;
+	margin-bottom: 50px;
+}
+.container{
+	display: inline-block;
+	margin: 0 auto;
+	text-align: left;
+}
+.container img{
+	padding: 0;
+	margin: 0;
+	float: left;
+}
+#registration_button{
+	cursor: pointer;
+	background: #4FBF34;
+	box-shadow: 5px -5px 0 #389F1F;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#registration_form{
+	float: right;
+	padding-top: 38px;
+	text-align: center;
+	color: #828282;
+	font-weight: bold;
+}
+
+#login_button{
+	background: #167ECE;
+	box-shadow: 5px -5px 0 #0C4A7A;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 80px;
+	cursor: pointer;
+}
+#registration_form input{
+	width: 228px;
+	height: 30px;
+	margin: 10px 0;
+	font-size: 20px;
+}
+footer{
+	width: 100%;
+	background: #4A4A4A;
+	text-align: center;
+	color: #FFF;
 }

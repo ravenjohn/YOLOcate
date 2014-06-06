@@ -4,26 +4,47 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, user-scalable=no" />
-        <link rel="shortcut icon" href="/favicon.png" />
+        <link rel="shortcut icon" href="images/favicon.png" />
 		<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
 		<link rel="stylesheet" href="css/nprogress.css" />
 		<link rel="stylesheet" href="css/style.css" />
-        <title>YOLO</title>
+        <title>YOLOcate</title>
     </head>
 
     <body>
 		<header>
 			<div class="gold-bar"></div>
-			<img src="images/Logo-v1.png" alt="Logo" width="874px" height="190px" />
+			<img id="logo_img" src="images/logo.png" alt="Logo" width="509px" height="110px" />
+			<br />
 			<div class="container">
-				<img src="" alt="description" />
+				<img src="images/desc.png" alt="description" width="376px" height="313px"/>
+				<form id="registration_form">
+					<button id="registration_button">REGISTER NOW!</button>
+					<br /><br />
+					OR
+					<br />
+					<input type="text" name="username" placeholder="Username"/>
+					<br />
+					<input type="text" name="password" placeholder="Password"/>
+					<br /><br />
+					<button type="submit" id="login_button">LOGIN</button>
+				</form>
 			</div>
 		</header>
+		<div class="gray-bar"></div>
+		<img src="images/features.png" alt="Logo" width="800px" height="647px" />
 
-		<section>
-
-			<div id="menu_div"></div>
-		</section>
+		<footer>
+			<br /><br /><br />
+			Liked YOLOcate? Try
+			<br /><br /><br />
+			<a href="yolove.html"><img src="images/yolove-tagline.png" alt="YOLOve Logo" width="525px" height="171px" /></a>
+			<br /><br /><br /><br />
+			yolocate@gmail.com
+			<br />
+			YOLOcate 2014
+			<br /><br /><br /><br />
+		</footer>
 
 		<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/Cookies.js/0.3.1/cookies.min.js"></script>
 		<script type="text/javascript" src="js/libs/curl.js"></script>

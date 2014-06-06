@@ -21,7 +21,6 @@ exports.get_all = function (req, res, next) {
 		.find({}).toArray(send_response);
 };
 
-
 exports.get_nearest_establishment = function (req, res, next) {
 	var data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
 		sender = data.senderAddress,
@@ -59,3 +58,4 @@ exports.get_nearest_establishment = function (req, res, next) {
 	mongo.collection('users')
 		.findOne({subscriber_number : sender}, get_access_token)
 };
+
