@@ -19,7 +19,8 @@ module.exports = function (router, logger) {
 	// establishments
 	router.get('/establishments', establishment.get_all);
 
-	router.post('/add_establishment', establishment.add_establishment);
+	router.post('/establishment', establishment.add_establishment);
+	router.put('/establishment', establishment.update_establishment);
 
 	router.post('/register', user.register);
 	router.post('/login', user.login);

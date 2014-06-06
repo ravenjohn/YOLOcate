@@ -102,6 +102,23 @@ exports.get_nearest_establishment = function (req, res, next) {
 		.findOne({subscriber_number : sender}, get_access_token)
 };
 
+exports.update_establishment = function (req, res, next) {
+	// name, lat, long, geocode, contact
+	var onUpdate = function (err, res) {
+		if(err) return next(err);
+
+		res.send(200, { message : "success"});
+	}, toUpdate = {};
+
+	if (req.body.name && req.body.name.trim !== 0) toUpdate.name = req.body.name;
+	if (req.body.lat && req.body.long && !isNaN(req.body.lat) && !isNaN(req.body.long)) toUpdate.loc = [req.body.lat, req.body.long];
+	if (req.body.geocode && req.body.name.trim() !== 0) toUpdate.geocde = req.body.geocode;
+	if (req.body.contact && req.body.contact.trim() !== 0) toUpdate.contact = req.body.contact;
+
+	mongo.collection
+		.update({id : "ObjectId("+req.body.id+")"}, { $set : toUpdate }, onUpdate);
+};
+
 exports.add_establishment = function (req, res, next) {
 	/* lat, long, geocode, name, username, contact */
 	var send_response = function (err, result) {
@@ -120,13 +137,24 @@ exports.add_establishment = function (req, res, next) {
 
 		};
 
+
+	if (!req.body.name || req.body.name.trim() === 0) next("missing name");
+	if (!req.body.supername || req.body.supername.trim() === 0) next("missing supername");
+	if (!req.body.username || req.body.username.trim() === 0) next("missing username");
+
+	if (!req.body.lat  || isNaN(req.body.lat)) next("missing latitude");
+	if (!req.body.long  || isNaN(req.body.long)) next("missing latitude");
+	if (!req.body.geocode || req.body.geocode.trim() === 0) next("missing geocode");
+	if (!req.body.keyword || req.body.keyword.trim() === 0) next("missing keyword");
+
 	mongo.collection('establishments')
-		.insert({name: req.body.name,
+		.insert({
+			name: req.body.name,
 			supername : req.body.supername,
-		username: req.body.username,
-		contact : req.body.contact,
-		loc : [+req.body.lat, +req.body.long],
-		geocode : req.body.geocode,
-		keyword : req.body.keyword
-	}, ensure);
+			username: req.body.username,
+			contact : req.body.contact || '',
+			loc : [parseFloat(req.body.lat), parseFloat(req.body.long)],
+			geocode : req.body.geocode,
+			keyword : req.body.keyword
+		}, ensure);
 };
