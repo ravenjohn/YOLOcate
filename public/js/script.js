@@ -64,26 +64,33 @@
 
 	_$("#close_modal").addEventListener('click', function (e) {
 		_$('#register_section') && (_$('#register_section').style.display = 'none');
-	}, true),
+	}, true);
 
-	_$('#registration_button2').addEventListener('click', function (e) {
-			data = { username : _$(':username'),
-				password : _$(':password'),
-				email : _$(':email'),
-				keyword : _$(':keyword')
+
+
+	_$('#registration_form').addEventListener('submit', function (e) {
+			if (e.target.password.value !== e.target.password_confirmation.value)
+				return function () {
+					alert('Passwords do not match!');
+					return false;
+				}
+
+			data = { username : e.target.username.value,
+				password : e.target.password.value,
+				email : e.target.email.value,
+				keyword : e.target.keyword.value
 			};
 
 			curl.post(apiURL + '/register')
 				.send(data)
 				.then(function (d) {
 					alert('Successfully registered!');
-					window.location.assign(apiURL + 'login.html');
-
+					window.location.assign(apiURL + '/login.html');
 				})
 				.onerror(function (e) {
 					alert('Something went wrong with your registration.');
-				})
-
+				});
+			return false;
 	}, true);
 
 	doc.body.addEventListener('click', function (e) {

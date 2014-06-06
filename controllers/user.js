@@ -10,7 +10,7 @@ exports.login = function (req, res, next) {
         if (!result)  return next(err);
 
         if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex')){
-            res.cookie('sessid', 'logged', {secure: true});
+            res.cookie('sessid', req.body.username, {secure: true});
             return res.send(200, {message : "success"});
         }
     };
@@ -29,7 +29,7 @@ exports.register = function (req, res, next) {
             res.send(200, {message : "success"});
         };
 
-    if (req.signedCookies.sessid === 'logged') return res.redirect(config.frontend.url + '/login.html');
+    if (req.signedCookies.sessid) return res.redirect(config.frontend.url + '/login.html');
 
     if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
     if (!req.body.password || req.body.password.trim() === 0) return next("missing password");

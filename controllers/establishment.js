@@ -38,12 +38,6 @@ exports.get_nearest_establishment = function (req, res, next) {
 			if (!result) return next('User not registered');
 			access_token = result.access_token;
 
-
-
-
-
-
-
 			if (keyword.trim().toLowerCase() === 'all') {
 
 				var send_response = function (err, result) {
@@ -193,7 +187,8 @@ exports.update_establishment = function (req, res, next) {
 		res.send(200, { message : "success"});
 	}, toUpdate = {};
 
-	if (req.signedCookies.sessid !== 'logged')  return next('session invalid');
+	if (!req.signedCookies.sessid)  return next('session invalid');
+
 	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
 	if (req.body.lat && req.body.long && !isNaN(req.body.lat) && !isNaN(req.body.long)) toUpdate.loc = [req.body.lat, req.body.long];
 	if (req.body.geocode && req.body.name.trim() !== 0) toUpdate.geocde = req.body.geocode;
@@ -221,7 +216,8 @@ exports.add_establishment = function (req, res, next) {
 
 		};
 
-	if (req.signedCookies.sessid !== 'logged')  return next('session invalid');
+	if (!req.signedCookies.sessid)  return next('session invalid');
+
 	if (!req.body.name || req.body.name.trim() === 0) return next("missing name");
 	if (!req.body.supername || req.body.supername.trim() === 0) return next("missing supername");
 	if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
@@ -250,7 +246,8 @@ exports.delete_establishment = function (req, res, next) {
 		res.send(200, { message : "success" });
 	};
 
-	if (req.signedCookies.sessid !== 'logged')  return next('session invalid');
+	if (!req.signedCookies.sessid)  return next('session invalid');
+
 	if (!req.body.id) return next('missing id');
 
 	mongo.collection('establishments')
