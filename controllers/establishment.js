@@ -150,9 +150,9 @@ exports.update_establishment = function (req, res, next) {
 
 		if(err) return next(err);
 
-		result.message = "sucess";
 
-		res.send(200, result);
+
+		res.send(200, { message : "success"});
 	}, toUpdate = {};
 
 	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
@@ -161,7 +161,7 @@ exports.update_establishment = function (req, res, next) {
 	if (req.body.contact && req.body.contact.trim() !== 0) toUpdate.contact = req.body.contact;
 
 	mongo.collection('establishments')
-		.update({_id : req.body.id }, { $set : toUpdate }, onUpdate);
+		.update({_id : toObjectID(req.body.id)}, { $set : toUpdate }, onUpdate);
 };
 
 exports.add_establishment = function (req, res, next) {
