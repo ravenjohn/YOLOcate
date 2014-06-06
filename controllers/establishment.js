@@ -7,12 +7,13 @@ exports.get_all = function (req, res, next) {
 			var data = {};
 			if (err) return next(err);
 			console.dir(result);
-			result = result.forEach(function (e) {
+			result.forEach(function (e) {
+				var keyword = e.keyword;
 				if (!data[e.keyword]) {
 					data[e.keyword] = [];
 				}
 				delete e.keyword;
-				data[e.keyword].push(e);
+				data[keyword].push(e);
 			});
 			res.send(data);
 		};
