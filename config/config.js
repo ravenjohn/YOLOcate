@@ -8,6 +8,7 @@ var path = require('path'),
 			temp_dir : path.normalize(__dirname + '/../temp'),
 			public_dir : path.normalize(__dirname + '/../public'),
 			cookie_secret : 'c38b1c9ac1c2f9d442f17bb2b77d1a075b617715',
+			google_api_key : 'AIzaSyDqWOahd3OSYfctw5pTTcNjQjjfD3QC-s4',
 			db_mongo : {
 				host : 'localhost',
 				port : 27017,

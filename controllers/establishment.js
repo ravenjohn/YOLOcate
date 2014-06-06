@@ -23,30 +23,17 @@ exports.get_all = function (req, res, next) {
 
 exports.get_nearest_establishment = function (req, res, next) {
 	var access_token,
+		mylocation,
+		modes = ['driving', 'walking', 'bicycling', 'transit'],
 		data = req.body.inboundSMSMessageList.inboundSMSMessage[0],
 		sender = data.senderAddress.replace('tel:+63', ''),
-		keyword = data.message,
-		_next = function (err) {
-			curl.post
-				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
-				.send({
-					outboundSMSMessageRequest : {
-						clientCorrelator : util.random_string(6),
-						senderAddress : 'tel:' + config.globe.code,
-						outboundSMSTextMessage : {message : err},
-						address : ['tel:+63' + sender]
-					}
-				})
-				.then(function (status, result) {
-					if (status === 200)
-						console.dir('message sent!');
-				})
-				.onerror(next);
-			next(err);
-		},
+		message = data.message.split(' '),
+		keyword = message[0],
+		mode = message[1],
+		msg,
 		get_access_token = function (err, result) {
 			if (err) return next(err);
-			if (!result) return _next('User not registered');
+			if (!result) return next('User not registered');
 			access_token = result.access_token;
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
@@ -62,13 +49,10 @@ exports.get_nearest_establishment = function (req, res, next) {
 			var data;
 			if (status !== 200) return next(result);
 			data = result.terminalLocationList.terminalLocation.currentLocation;
-			console.dir({
-					keyword : keyword,
-					$near : [+data.latitude, +data.longitude]
-				});
+			mylocation = [+data.latitude, +data.longitude];
 			mongo.collection('establishments')
 				.findOne({
-					keyword : keyword,
+					keyword : keyword.toLowerCase(),
 					loc : {$near : [+data.latitude, +data.longitude]}
 				}, send_response);
 		},
@@ -78,6 +62,46 @@ exports.get_nearest_establishment = function (req, res, next) {
 			if (!result)
 				return next('Invalid keyword');
 
+			msg = 'Nearest is ' + result.name + ' at ' + result.geocode + '.';
+
+			if (mode) {
+				if (~modes.indexOf(mode.toLowerCase())) {
+					curl.get
+						.to('maps.googleapis.com', 443, '/maps/api/directions/json')
+						.secured()
+						.send({
+							origin : mylocation.join(','),
+							destination : result.loc.join(','),
+							key : config.google_api_key,
+							mode : mode
+						})
+						.then(get_directions)
+						.onerror(next);
+				}
+				else {
+					send_msg(msg + ' Invalid mode, should be ' + modes.join(' '));
+				}
+			}
+			else
+				send_msg(msg);
+
+			res.send(result);
+		},
+		get_directions = function (status, result) {
+			var steps = result.routes[0].legs[0].steps,
+				i = steps.length,
+				j = 0;
+
+			if (status !== 200)
+				return send_msg(' Failed to get directions, please try again.');
+
+			for (; j < i; j += 1) {
+				msg += (' ' + steps[j].html_instructions).replace(/<(?:.|\n)*?>/gm, '') + ' for ' + steps[j].duration.text + '.';
+			}
+
+			send_msg(msg);
+		},
+		send_msg = function (msg) {
 			curl.post
 				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
 				.add_header('Content-Type', 'application/json')
@@ -85,7 +109,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 					outboundSMSMessageRequest : {
 						clientCorrelator : util.random_string(6),
 						senderAddress : 'tel:' + config.globe.code,
-						outboundSMSTextMessage : {message : result.geocode},
+						outboundSMSTextMessage : {message : msg},
 						address : ['tel:+63' + sender]
 					}
 				})
@@ -94,8 +118,6 @@ exports.get_nearest_establishment = function (req, res, next) {
 						console.dir('message sent!');
 				})
 				.onerror(next);
-
-			res.send(result);
 		};
 
 	mongo.collection('users')
