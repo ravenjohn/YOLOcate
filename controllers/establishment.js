@@ -80,6 +80,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 			curl.post
 				.to('devapi.globelabs.com.ph', 80, '/smsmessaging/v1/outbound/' + config.globe.code+ '/requests?access_token=' + access_token)
+				.add_header('Content-Type', 'application/json')
 				.send({
 					outboundSMSMessageRequest : {
 						clientCorrelator : util.random_string(6),
@@ -88,7 +89,6 @@ exports.get_nearest_establishment = function (req, res, next) {
 						address : ['tel:+63' + sender]
 					}
 				})
-				.add_header('Content-Type', 'application/json')
 				.then(function (status, result) {
 					if (status === 200)
 						console.dir('message sent!');
