@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/wildtron/YOLOcate.git"
+    "url": "https://github.com/ravenjohn/YOLOcate.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/wildtron/YOLOcate/issues"
+    "url": "https://github.com/ravenjohn/YOLOcate/issues"
   },
-  "homepage": "https://github.com/wildtron/YOLOcate",
+  "homepage": "https://github.com/ravenjohn/YOLOcate",
   "dependencies": {
     "express": "^4.4.1",
     "compression": "^1.0.3",
