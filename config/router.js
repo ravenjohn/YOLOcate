@@ -11,9 +11,8 @@ module.exports = function (router, logger) {
 	// establishments
 	router.get('/establishments', establishment.get_all);
 
-	router.post('/add_establishment', handler.add_establishment);
+	router.post('/add_establishment', establishment.add_establishment);
 
-	// users
 	router.post('/login', user.login);
 
 	router.all('*', function (req, res) {
