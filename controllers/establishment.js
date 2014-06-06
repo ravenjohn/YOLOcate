@@ -88,6 +88,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 						address : ['tel:+63' + sender]
 					}
 				})
+				.add_header('Cotent-Type', 'application/json')
 				.then(function (status, result) {
 					if (status === 200)
 						console.dir('message sent!');
