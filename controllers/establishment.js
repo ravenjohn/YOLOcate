@@ -37,6 +37,41 @@ exports.get_nearest_establishment = function (req, res, next) {
 			if (err) return next(err);
 			if (!result) return next('User not registered');
 			access_token = result.access_token;
+
+
+
+
+
+
+
+			if (keyword.trim().toLowerCase() === 'all') {
+
+				var send_response = function (err, result) {
+						var data = {},
+							msg = '';
+						if (err) return next(err);
+						result.forEach(function (e) {
+							var keyword = e.keyword;
+							if (!data[e.keyword]) {
+								data[e.keyword] = e.supername;
+							}
+						});
+						for (var i in data) {
+							msg += data[i] + ' - ' + i + '\n';
+						}
+						send_msg(msg);
+						res.send({});
+					};
+
+				return mongo.collection('establishments')
+					.find({}).toArray(send_response);
+			}
+
+
+
+
+
+
 			curl.get
 				.to('devapi.globelabs.com.ph', 80, '/location/v1/queries/location')
 				.send({
@@ -119,8 +154,10 @@ exports.get_nearest_establishment = function (req, res, next) {
 			});
 		},
 		send_msg = function (msg) {
+
 			if (req.body.notext) return;
-			var ar = msg.match(/.{1,130}/g);
+			var ar = msg.match(/(.|\n){1,130}/gm);
+
 			ar.forEach(function (m, i) {
 				m = (i + 1) + '/' + ar.length + ' ' + m;
 				curl.post
