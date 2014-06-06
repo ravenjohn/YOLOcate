@@ -7,7 +7,6 @@ exports.get_all = function (req, res, next) {
 	var send_response = function (err, result) {
 			var data = {};
 			if (err) return next(err);
-			console.dir(result);
 			result.forEach(function (e) {
 				var keyword = e.keyword;
 				if (!data[e.keyword]) {
