@@ -1,7 +1,7 @@
 
 	var doc = window.document,
 		apiURL = 'http://yolo.adin234.com',
-		frontEndURL = 'http://ravenjohn.github.io/YOLOcate/public',
+		frontEndURL = 'http://yolo.adin234.com',
 		current = {},
 		_$ = function (s) {
 			if (s[0] === '#') return doc.getElementById(s.substring(1));
