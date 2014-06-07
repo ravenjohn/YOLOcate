@@ -74,6 +74,7 @@
 
             curl.get('http://yolo.adin234.com/establishments')
                 .then(function (d) {
+                    console.log(d);
                     d.forEach(function (a){
 
                         if (Cookies.sessid === a.username)
