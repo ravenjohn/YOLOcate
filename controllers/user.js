@@ -34,8 +34,6 @@ exports.register = function (req, res, next) {
             res.send(200, {message : "success"});
         };
 
-    if (!req.cookies.sessid) return res.redirect(config.frontend_url + 'login.html');
-
     if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
     if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
     if (!req.body.keyword || req.body.keyword.trim() === 0) return next("missing keyword");
