@@ -87,7 +87,6 @@
 		<script type="text/javascript" src="js/libs/pages.js"></script>
 		<script type="text/javascript">
 
-
             if(!Cookies.get('sessid')) window.location.href = 'establishment.html'
 			var map = new google.maps.Map(document.getElementById('map'), {
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
@@ -177,6 +176,13 @@
                     console.log('Something went wrong.');
                 });
 
+            document.getElementById('add_button').addEventListener('click', function (e) {
+                document.getElementById('register_section').style.display = 'block';
+            });
+
+            document.getElementById("close_modal").addEventListener('click', function (e) {
+                document.getElementById('register_section').style.display = 'none';
+            }, true);
 		</script>
     </body>
 

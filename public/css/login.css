@@ -88,3 +88,117 @@ footer{
 .delete_button{
 	background: #C00e0e;
 }
+
+#registration_button, #registration_button2{
+	cursor: pointer;
+	background: #4FBF34;
+	box-shadow: 5px -5px 0 #389F1F;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#add_button{
+	cursor: pointer;
+	background: #ab5050;
+	box-shadow: 5px -5px 0 #8f2424;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+}
+#login_form{
+	float: right;
+	padding-top: 38px;
+	text-align: center;
+	color: #828282;
+	font-weight: bold;
+}
+
+#login_button{
+	background: #167ECE;
+	box-shadow: 5px -5px 0 #0C4A7A;
+	color: #FFF;
+	border: 0;
+	padding: 12px 0;
+	width: 228px;
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 80px;
+	cursor: pointer;
+}
+#login_form input{
+	width: 228px;
+	height: 30px;
+	margin: 10px 0;
+	font-size: 20px;
+}
+footer{
+	width: 100%;
+	background: #4A4A4A;
+	text-align: center;
+	color: #FFF;
+}
+
+
+#register_section{
+	z-index: 10;
+	display: none;
+	position: fixed;
+	background: rgba(70, 70, 70, 0.63);
+	width : 100%;
+	height : 100%;
+	top: 0;
+	left: 0;
+	right :0;
+	bottom : 0;
+	text-align: center;
+}
+#registration_modal{
+	width: 375px;
+	padding-bottom: 30px;
+	margin: 0 auto;
+	margin-top: 70px;
+	background: #FFF;
+	border-radius: 5px;
+	text-align: center;
+}
+
+#registration_form input{
+	width : 290px;
+	height : 30px;
+	margin-bottom: 20px;
+	text-align: center;
+	border-radius: px;
+}
+#register_img{
+	margin-top: 57px;
+	margin-bottom: 20px;
+}
+
+.blood{
+	text-align: left;
+	font-size: 10px;
+	color: #E06E6E;
+}
+
+#close_modal {
+	float: right;
+	background: white;
+	top: 0px;
+	width: 30px;
+	height: 40px;
+	border: 0px;
+	color: #C8C8C8;
+}
+
+#close_modal:hover {
+	cursor: pointer;
+}
+.absolute {
+	position: absolute;
+}
