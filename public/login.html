@@ -113,7 +113,7 @@
                         username : Cookies.get('sessid')
                     };
 
-                function () {
+                (function () {
                     var lat = map.getCenter().lat(),
                         long = map.getCenter().long(),
                         geocoder = new google.maps.Geocoder;
@@ -125,7 +125,7 @@
                                 } else data.geocode = null;
                             } else data.geocode = null;
                         });
-                    }();
+                })();
 
                 curl.post('http://yolo.adin234.com/establishment')
                     .data(data)
