@@ -19,6 +19,7 @@
 				<img src="images/logo.png" alt="Logo" width="160px" height="35px" />
 				<a href="login.html" class="active">Establishments</a>
 				<a href="analytics.html">Analytics</a>
+				<a href="#" id="keyword_a"></a>
 			</header>
 		</div>
 
@@ -60,8 +61,6 @@
                     <br />
                     <input type="text" name="contact" required="required" placeholder="contact #"/>
                     <br />
-                    <input type="text" name="keyword" required="required" placeholder="keyword"/>
-                    <br /> <br />
                     <button type="submit" id="registration_button2">ADD</button>
                 </form>
             </div>
@@ -86,6 +85,10 @@
 		<script type="text/javascript">
 
             if(!Cookies.get('sessid')) window.location.href = 'establishment.html'
+
+
+			_$('#keyword_a').innerHTML = 'Your keyword : ' + Cookies.get('keyword');
+
 			var map = new google.maps.Map(document.getElementById('map'), {
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
 				zoom: 15
@@ -107,7 +110,7 @@
                     var data = {
                             name : e.target.name.value,
                             contact : e.target.contact.value,
-                            keyword : e.target.keyword.value,
+                            keyword : Cookies.get('keyword'),
                             lat : map.getCenter().lat(),
                             long : map.getCenter().lng(),
                             supername : Cookies.get('supid'),

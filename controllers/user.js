@@ -12,6 +12,7 @@ exports.login = function (req, res, next) {
         if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex')){
             res.cookie('sessid', req.body.username);
             res.cookie('supid', result.supername);
+            res.cookie('keyword', result.keyword);
             return res.send(200, {message : "success"});
         } else {
             return next("Invalid username or password");
