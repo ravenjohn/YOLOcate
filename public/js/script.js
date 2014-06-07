@@ -76,6 +76,8 @@
 			.send(data)
 			.then(function (d) {
 				Cookies.set('sessid', e.target.username.value);
+				Cookies.set('keyword', d.keyword);
+				Cookies.set('supid', d.supername);
 				window.location.href = frontEndURL + '/login.html';
 			})
 			.onerror(function (e) {
@@ -104,6 +106,8 @@
 				.send(data)
 				.then(function (d) {
 					Cookies.set('sessid', e.target.username.value);
+					Cookies.set('keyword', e.target.keyword.value);
+					Cookies.set('supid', e.target.supername.value);
 					window.location.href = frontEndURL + '/login.html';
 				})
 				.onerror(function (e) {
