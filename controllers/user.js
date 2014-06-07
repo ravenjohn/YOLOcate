@@ -7,7 +7,7 @@ exports.login = function (req, res, next) {
     var compare = function (err, result) {
         if (err) return next(err);
 
-        if (!result) return next("database server error response");
+        if (!result) return next(result);
 
         if (result.password === require('crypto').createHash('sha1').update(req.body.password).digest('hex')){
             res.cookie('sessid', req.body.username, {secure: true});
