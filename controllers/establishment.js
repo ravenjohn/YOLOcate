@@ -97,6 +97,10 @@ exports.get_nearest_establishment = function (req, res, next) {
 			name = result.name;
 			msg = 'Nearest is ' + result.name + ' at ' + result.geocode + '.';
 
+			if (result.contact) {
+				msg += ' Contact # : ' + result.contact + '.';
+			}
+
 			if (mode) {
 				if (~modes.indexOf(mode.toLowerCase())) {
 					return curl.get
