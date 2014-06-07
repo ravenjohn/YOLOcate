@@ -34,7 +34,7 @@ exports.register = function (req, res, next) {
             res.send(200, {message : "success"});
         };
 
-    if (!req.cookies.sessid) return res.redirect('yolo.adin234.com/' + 'login.html');
+    if (!req.cookies.sessid) return res.redirect('login.html');
 
     if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
     if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
