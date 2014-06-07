@@ -104,20 +104,21 @@
 
 
                 (function () {
+                    var data = {
+                            name : e.target.name.value,
+                            contact : e.target.contact.value,
+                            keyword : e.target.keyword.value,
+                            lat : map.getCenter().lat(),
+                            long : map.getCenter().lng(),
+                            supername : Cookies.get('supid'),
+                            username : Cookies.get('sessid')
+                        };
+
                     var lat = data.lat,
                         lng = data.long,
                         geocoder = new google.maps.Geocoder;
 
                         geocoder.geocode({'latLng' : new google.maps.LatLng(lat,lng)}, function (results, status){
-                            var data = {
-                                    name : e.target.name.value,
-                                    contact : e.target.contact.value,
-                                    keyword : e.target.keyword.value,
-                                    lat : map.getCenter().lat(),
-                                    long : map.getCenter().lng(),
-                                    supername : Cookies.get('supid'),
-                                    username : Cookies.get('sessid')
-                                };
 
                             if (status == google.maps.GeocoderStatus.OK){
                                 if (results[1]){
