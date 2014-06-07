@@ -43,7 +43,7 @@
 
 		start = function () {
 			page.show(window.location.pathname === '/'
-				? '/default'
+				? '/index.html'
 				: window.location.pathname);
 		};
 
