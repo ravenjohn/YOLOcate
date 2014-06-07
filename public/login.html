@@ -71,7 +71,14 @@
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
 				zoom: 15
 			}),
-                markers={};
+                markers={},
+                cross_hair = new google.maps.Marker({
+                    map : map,
+                    icon : '/images/cross-hairs.gif',
+                    shape : {coords: [0,0,0,0], type: 'rect'}
+                });
+
+            cross_hair.bindTo('position', map, 'center');
 
             curl.get('http://yolo.adin234.com/establishments')
                 .then(function (d) {
