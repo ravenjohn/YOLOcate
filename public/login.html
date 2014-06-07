@@ -127,7 +127,7 @@
                 })();
 
                 curl.post('http://yolo.adin234.com/establishment')
-                    .data(data)
+                    .send(data)
                     .then(function (d) {
                         marker = new google.maps.Marker({
                             position : new google.maps.LatLng(data.lat, data.lng),
