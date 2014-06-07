@@ -93,6 +93,11 @@
                                         icon: 'images/favicon.png'
                                     });
                                     markers[a._id] = marker;
+                                    google.maps.event.addListener(marker, 'click', function () {
+                                        new google.maps.InfoWindow({
+                                            content : "<b>" + a.name + "</b><br>" + a.geocode + "<br>" + a.contact
+                                        }).open(map, marker);
+                                    });
                                 }
                             }
                         });
