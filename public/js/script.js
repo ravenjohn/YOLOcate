@@ -57,7 +57,6 @@
 	**/
 	page('*', activateLink);
 
-
 	/**
 		Bind events
 	**/
@@ -66,7 +65,24 @@
 		_$('#register_section') && (_$('#register_section').style.display = 'none');
 	}, true);
 
+	_$('#login_form').addEventListener('submit', function (e) {
+		var data = {
+			username : e.target.username.value,
+			password : e.target.password.value
+		};
 
+		curl.post(apiURL + '/login')
+			.send(data)
+			.then(function (d) {
+				Cookies.set('sessid', e.target.username.value);
+				window.location.href = apiURL + '/login.html';
+			})
+			.onerror(function (e) {
+				alert('Something went wrong with login.');
+			});
+
+		return false;
+	});
 
 	_$('#registration_form').addEventListener('submit', function (e) {
 			if (e.target.password.value !== e.target.password_confirmation.value)
@@ -75,7 +91,8 @@
 					return false;
 				}
 
-			data = { username : e.target.username.value,
+			var data = {
+				username : e.target.username.value,
 				password : e.target.password.value,
 				email : e.target.email.value,
 				keyword : e.target.keyword.value
@@ -84,8 +101,8 @@
 			curl.post(apiURL + '/register')
 				.send(data)
 				.then(function (d) {
-					alert('Successfully registered!');
-					window.location.assign(apiURL + '/login.html');
+					Cookies.set('sessid', e.target.username.value);
+					window.location.href = apiURL + '/login.html';
 				})
 				.onerror(function (e) {
 					alert('Something went wrong with your registration.');
