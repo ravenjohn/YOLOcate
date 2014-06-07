@@ -220,7 +220,7 @@ exports.add_establishment = function (req, res, next) {
 
 		res.send(200, {
 			message: "Success",
-			data : insert_result;
+			data : insert_result
 		});
 
 	},
