@@ -118,7 +118,7 @@
                         geocoder = new google.maps.Geocoder;
 
                         geocoder.geocode({'latLng' : new google.maps.LatLng(lat,lng)}, function (results, status){
-                            if (status == google.maps.Geocoderstatus.OK){
+                            if (status == google.maps.GeocoderStatus.OK){
                                 if (results[1]){
                                     return data.geocode = results[1].formatted_address;
                                 } else data.geocode = null;
