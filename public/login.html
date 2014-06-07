@@ -105,8 +105,8 @@
                         name : e.target.name.value,
                         contact : e.target.contact.value,
                         keyword : e.target.keyword.value,
-                        lat : map.getCenter().k,
-                        long : map.getCenter().A,
+                        lat : map.getCenter().lat(),
+                        long : map.getCenter().lng(),
                         supername : Cookies.get('supid'),
                         username : Cookies.get('sessid'),
                         geocode : "-"
