@@ -75,7 +75,7 @@
             curl.get('http://yolo.adin234.com/establishments')
                 .then(function (d) {
                     d.forEach(function (a){
-                        
+
                         if (Cookies.sessid === a.username)
                         if (a.latt && a.long) {
                             var marker  = new google.maps.Marker({
