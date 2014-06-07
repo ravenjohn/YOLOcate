@@ -1,6 +1,7 @@
 
 	var doc = window.document,
-		apiURL = 'http://localhost:8000',
+		apiURL = 'http://yolo.adin234.com',
+		frontEndURL = 'http://ravenjohn.github.io/YOLOcate/public';
 		current = {},
 		_$ = function (s) {
 			if (s[0] === '#') return doc.getElementById(s.substring(1));
@@ -75,7 +76,7 @@
 			.send(data)
 			.then(function (d) {
 				Cookies.set('sessid', e.target.username.value);
-				window.location.href = apiURL + '/login.html';
+				window.location.href = frontEndURL + '/login.html';
 			})
 			.onerror(function (e) {
 				alert('Something went wrong with login.');
@@ -102,7 +103,7 @@
 				.send(data)
 				.then(function (d) {
 					Cookies.set('sessid', e.target.username.value);
-					window.location.href = apiURL + '/login.html';
+					window.location.href = frontEndURL + '/login.html';
 				})
 				.onerror(function (e) {
 					alert('Something went wrong with your registration.');
