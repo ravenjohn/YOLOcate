@@ -92,14 +92,8 @@
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
 				zoom: 15
 			}),
-                markers={},
-                cross_hair = new google.maps.Marker({
-                    map : map,
-                    icon : '/images/cross-hairs.gif',
-                    shape : {coords: [0,0,0,0], type: 'rect'}
-                });
+                markers={};
 
-            cross_hair.bindTo('position', map, 'center');
 
             document.getElementById('registration_form').addEventListener('submit', function (e) {
                 console.dir(raven);
