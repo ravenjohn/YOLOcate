@@ -3,7 +3,7 @@ var config = require(__dirname + '/../config/config'),
 	curl = require(__dirname + '/../lib/curl');
 
 exports.handle_sms = function (req, res, next) {
-	var data,
+	var data = req.query,
 		get_access_token = function (status, result) {
 			if (status !== 200) return next(result);
 			data = result;
@@ -15,6 +15,12 @@ exports.handle_sms = function (req, res, next) {
 			if (err) return next(err);
 			res.redirect(config.frontend_url + '#/success');
 		};
+
+	if (data.access_token) {
+		data._id = data.subscriber_number;
+		return mongo.collection('users')
+			.insert(data, send_response);
+	}
 
 	curl.post
 		.to('developer.globelabs.com.ph', 80, '/oauth/access_token')
