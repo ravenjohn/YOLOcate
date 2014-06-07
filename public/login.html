@@ -109,6 +109,7 @@
                         supername : Cookies.get('supid'),
                         username : Cookies.get('sessid')
                     };
+                    console.log(map.getCenter());
 
                 (function () {
                     var lat = map.getCenter().lat(),
@@ -149,7 +150,6 @@
 
                             if (Cookies.get('sessid') === a.username){
                                 if (a.loc) {
-                                console.log('enters');
                                     var marker  = new google.maps.Marker({
                                         id : a._id,
                                         position : new google.maps.LatLng(a.loc[0], a.loc[1]),
