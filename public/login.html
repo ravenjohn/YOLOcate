@@ -78,8 +78,8 @@
                         var x = d[i];
 
                         x.forEach(function (a) {
-                            console.log('Loops');
-                            if (Cookies.sessid === a.username){
+
+                            if (Cookies.get('sessid') === a.username){
                                 console.log('enters');
                                 if (a.latt && a.long) {
                                     var marker  = new google.maps.Marker({
