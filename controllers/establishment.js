@@ -203,7 +203,7 @@ exports.update_establishment = function (req, res, next) {
 		res.send(200, { message : "success"});
 	}, toUpdate = {};
 
-	if (!req.signedCookies.sessid)  return next('session invalid');
+	if (!req.cookies.sessid)  return next('session invalid');
 
 	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
 	if (req.body.lat && req.body.long && !isNaN(req.body.lat) && !isNaN(req.body.long)) toUpdate.loc = [req.body.lat, req.body.long];
@@ -215,7 +215,6 @@ exports.update_establishment = function (req, res, next) {
 };
 
 exports.add_establishment = function (req, res, next) {
-	/* lat, long, geocode, name, username, contact */
 	var send_response = function (err, result) {
 		if (err) return next(err);
 
@@ -232,7 +231,7 @@ exports.add_establishment = function (req, res, next) {
 
 		};
 
-	if (!req.signedCookies.sessid)  return next('session invalid');
+	if (!req.cookies.sessid)  return next('session invalid');
 
 	if (!req.body.name || req.body.name.trim() === 0) return next("missing name");
 	if (!req.body.supername || req.body.supername.trim() === 0) return next("missing supername");
@@ -262,7 +261,7 @@ exports.delete_establishment = function (req, res, next) {
 		res.send(200, { message : "success" });
 	};
 
-	if (!req.signedCookies.sessid)  return next('session invalid');
+	if (!req.cookies.sessid)  return next('session invalid');
 
 	if (!req.body.id) return next('missing id');
 
