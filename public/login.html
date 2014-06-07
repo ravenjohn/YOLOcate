@@ -71,7 +71,7 @@
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
 				zoom: 8
 			}),
-                markers;
+                markers={};
 
             curl.get('http://yolo.adin234.com/establishments')
                 .then(function (d) {
