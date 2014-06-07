@@ -96,7 +96,8 @@
 				username : e.target.username.value,
 				password : e.target.password.value,
 				email : e.target.email.value,
-				keyword : e.target.keyword.value
+				keyword : e.target.keyword.value,
+				supername : e.target.supername.value
 			};
 
 			curl.post(apiURL + '/register')
