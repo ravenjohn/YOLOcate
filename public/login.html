@@ -124,7 +124,8 @@
                                     return data.geocode = results[1].formatted_address;
                                 } else data.geocode = null;
                             } else data.geocode = null;
-                        })();
+                        });
+                    }();
 
                 curl.post('http://yolo.adin234.com/establishment')
                     .data(data)
