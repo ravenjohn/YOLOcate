@@ -87,7 +87,7 @@
             if(!Cookies.get('sessid')) window.location.href = 'establishment.html'
 
 
-			_$('#keyword_a').innerHTML = 'Your keyword : ' + Cookies.get('keyword');
+			document.getElementById('keyword_a').innerHTML = 'Your keyword : ' + Cookies.get('keyword');
 
 			var map = new google.maps.Map(document.getElementById('map'), {
 				center: new google.maps.LatLng(14.5597152, 121.0187398),
