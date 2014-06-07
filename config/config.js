@@ -4,6 +4,11 @@ var path = require('path'),
 			port : 8000,
 			app_name : 'YOLO',
 			env : 'development',
+			allowed_servers : [
+				'http://yolo.adin234.com',
+				'http://ravenjohn.github.io',
+				'http://localhost:8000',
+			]
 			frontend_url : 'http://ravenjohn.github.io/YOLOcate/public/',
 			temp_dir : path.normalize(__dirname + '/../temp'),
 			public_dir : path.normalize(__dirname + '/../public'),
