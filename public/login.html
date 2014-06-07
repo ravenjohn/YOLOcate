@@ -24,7 +24,6 @@
 		</div>
 
 		<div id="map"></div>
-        <button id="add_button" class="add_button">Add</button>
 		<table id="establishments_table">
 			<thead>
 				<tr>
@@ -103,7 +102,7 @@
             cross_hair.bindTo('position', map, 'center');
 
             document.getElementById('registration_form').addEventListener('submit', function (e) {
-                console.log(map.getCenter());
+                console.dir(raven);
 
 
                 (function () {
@@ -111,8 +110,8 @@
                             name : e.target.name.value,
                             contact : e.target.contact.value,
                             keyword : Cookies.get('keyword'),
-                            lat : map.getCenter().lat(),
-                            long : map.getCenter().lng(),
+                            lat : raven.lat(),
+                            long : raven.lng(),
                             supername : Cookies.get('supid'),
                             username : Cookies.get('sessid')
                         };
@@ -137,7 +136,7 @@
                                     document.getElementById("close_modal").click();
 
                                     marker = new google.maps.Marker({
-                                        position : new google.maps.LatLng(data.lat, data.long),
+                                        position : raven,
                                         map : map,
                                         icon: 'images/favicon.png',
                                         title: data.name,
@@ -190,9 +189,10 @@
                     console.log('Something went wrong.');
                 });
 
-            document.getElementById('add_button').addEventListener('click', function (e) {
+            google.maps.event.addListener(map, 'click', function(event) {
+				raven = event.latLng;
                 document.getElementById('register_section').style.display = 'block';
-            });
+			});
 
             document.getElementById("close_modal").addEventListener('click', function (e) {
                 document.getElementById('register_section').style.display = 'none';
