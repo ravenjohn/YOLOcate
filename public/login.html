@@ -129,11 +129,15 @@
                             curl.post('http://yolo.adin234.com/establishment')
                                 .send(data)
                                 .then(function (d) {
+
+                                    console.log(d);
                                     document.getElementById("close_modal").click();
+
                                     marker = new google.maps.Marker({
                                         position : new google.maps.LatLng(data.lat, data.long),
                                         map : map,
-                                        icon: 'images/favicon.png'
+                                        icon: 'images/favicon.png',
+                                        title: data.name,
                                     });
                                     infoWindow = new google.maps.InfoWindow();
                                     infoWindow.setContent('<b>'+data.name+'</b><br>'+data.contact+'<br>'+data.geocode);
@@ -169,6 +173,10 @@
                                         new google.maps.InfoWindow({
                                             content : "<b>" + a.name + "</b><br>" + a.geocode + "<br>" + a.contact
                                         }).open(map, marker);
+                                    });
+
+                                    google.maps.event.addListener(marker, 'dblclick', function (){
+
                                     });
                                 }
                             }

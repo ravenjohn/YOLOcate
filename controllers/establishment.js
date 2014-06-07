@@ -203,7 +203,7 @@ exports.update_establishment = function (req, res, next) {
 		res.send(200, { message : "success"});
 	}, toUpdate = {};
 
-	if (!req.cookies.sessid)  return next('session invalid');
+if (!req.cookies.sessid)  return next('session invalid');
 
 	if (req.body.name && req.body.name.trim() !== 0) toUpdate.name = req.body.name;
 	if (req.body.lat && req.body.long && !isNaN(req.body.lat) && !isNaN(req.body.long)) toUpdate.loc = [req.body.lat, req.body.long];
@@ -219,17 +219,20 @@ exports.add_establishment = function (req, res, next) {
 		if (err) return next(err);
 
 		res.send(200, {
-			message: "Success"
+			message: "Success",
+			data : insert_result;
 		});
 
 	},
 		ensure = function (err, result) {
 			if (err) return next(err);
 
+			insert_result = result;
+
 			mongo.collection('establishments')
 				.ensureIndex({loc: "2d"}, send_response);
 
-		};
+		}, insert_result;
 
 	if (!req.cookies.sessid)  return next('session invalid');
 
