@@ -80,14 +80,14 @@
                         x.forEach(function (a) {
 
                             if (Cookies.get('sessid') === a.username){
+                                if (a.loc) {
                                 console.log('enters');
-                                if (a.latt && a.long) {
                                     var marker  = new google.maps.Marker({
                                         id : a._id,
-                                        position : new google.maps.LatLng(a.lat, a.long),
+                                        position : new google.maps.LatLng(a.loc[0], a.loc[1]),
                                         map : map,
-                                        lat : a.lat,
-                                        long : a.long,
+                                        lat : a.loc[0],
+                                        long : a.loc[1],
                                         icon: 'images/favicon.png'
                                     });
                                     markers[a._id] = marker;
