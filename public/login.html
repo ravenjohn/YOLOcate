@@ -109,7 +109,7 @@
                         long : map.getCenter().A,
                         supername : Cookies.get('supid'),
                         username : Cookies.get('sessid'),
-                        geocode : ""
+                        geocode : "-"
                     };
 
 
@@ -121,9 +121,9 @@
                         geocoder.geocode({'latLng' : new google.maps.LatLng(lat,lng)}, function (results, status){
                             if (status == google.maps.GeocoderStatus.OK){
                                 if (results[1]){
-                                    return data.geocode = results[1].formatted_address;
-                                } else data.geocode = "";
-                            } else data.geocode = "";
+                                    data.geocode = results[1].formatted_address;
+                                } else data.geocode = "-";
+                            } else data.geocode = "-";
                         });
                 })();
 
