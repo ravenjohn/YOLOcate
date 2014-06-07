@@ -156,7 +156,15 @@ exports.get_nearest_establishment = function (req, res, next) {
 				msg += temp;
 			}
 
-			send_msg(msg);
+			if(mobile) {
+				send_msg(JSON.stringify({
+					name : name,
+					geocode : geocode,
+					steps : _steps
+				}));
+			} else {
+				send_msg(msg);
+			}
 			res.send({
 				name : name,
 				geocode : geocode,
