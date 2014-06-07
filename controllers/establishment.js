@@ -45,7 +45,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 
 			if (keyword.trim().toLowerCase() === 'all') {
 
-				var send_response = function (err, result) {
+				var send_response2 = function (err, result) {
 						var data = {},
 							msg = '';
 						if (err) return next(err);
@@ -63,7 +63,7 @@ exports.get_nearest_establishment = function (req, res, next) {
 					};
 
 				return mongo.collection('establishments')
-					.find({}).toArray(send_response);
+					.find({}).toArray(send_response2);
 			}
 
 			curl.get
