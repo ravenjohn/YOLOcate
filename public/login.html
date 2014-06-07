@@ -100,6 +100,7 @@
             cross_hair.bindTo('position', map, 'center');
 
             document.getElementById('registration_form').addEventListener('submit', function (e) {
+                console.log(map.getCenter());
                 var data = {
                         name : e.target.name.value,
                         contact : e.target.contact.value,
@@ -109,11 +110,11 @@
                         supername : Cookies.get('supid'),
                         username : Cookies.get('sessid')
                     };
-                    console.log(map.getCenter());
+
 
                 (function () {
-                    var lat = map.getCenter().lat(),
-                        long = map.getCenter().long(),
+                    var lat = data.lat,
+                        long = data.long,
                         geocoder = new google.maps.Geocoder;
 
                         geocoder.geocode({'latLng' : new google.maps.LatLng(lat,lng)}, function (results, status){
