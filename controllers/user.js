@@ -39,7 +39,7 @@ exports.register = function (req, res, next) {
     if (!req.body.username || req.body.username.trim() === 0) return next("missing username");
     if (!req.body.password || req.body.password.trim() === 0) return next("missing password");
     if (!req.body.keyword || req.body.keyword.trim() === 0) return next("missing keyword");
-    if (!req.body.supername || req.body.supername.trim() ==== 0) return next("missing supername");
+    if (!req.body.supername || req.body.supername.trim() === 0) return next("missing supername");
 
     mongo.collection('establishment_users')
         .insert({username: req.body.username,
